@@ -1,0 +1,157 @@
+mongod --directoryperdb --dbpath E:\mongo\data\db --logpath E:\mongo\logs\mongo.log --logappend --rest --install --serviceName "MongoDB"
+
+mongod --dbpath "c:\mymongodb" --logpath "E:\mongo\logs\mongo.log" --install --serviceName "MongoDB"
+
+> show dbs
+admin  0.000GB
+local  0.000GB
+> use mycustomers
+switched to db mycustomers
+> db
+mycustomers
+
+creat user
+
+> db.createUser({
+... user:"ankul",
+... pwd:"1234",
+... roles:["readWrite", "dbAdmin"]
+... });
+Successfully added user: { "user" : "ankul", "roles" : [ "readWrite", "dbAdmin" ] }
+> db.createCollection('customers');
+{ "ok" : 1 }
+> show collections
+customers
+> db.customers.insert([{firstName:"ankul", lastName:"choudhary"}, {firstName:"monika", lastName:"choudhary"}]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 2,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.customers.find();
+{ "_id" : ObjectId("59b197429723814af340b97a"), "firstName" : "ankul", "lastName" : "choudhary" }
+{ "_id" : ObjectId("59b197429723814af340b97b"), "firstName" : "monika", "lastName" : "choudhary" }
+> db.customers.find().pretty;
+function () {
+    this._prettyShell = true;
+    return this;
+}
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firstName" : "ankul",
+        "lastName" : "choudhary"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary"
+}
+> db.customers.update({firstName:"ankul"}, {firtName:"ankit",lastName:"chaudhary",gender:"male"});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firtName" : "ankit",
+        "lastName" : "chaudhary",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary"
+}
+> db.customers.update({firstName:"monika"}, {$set:{gender:"female"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firtName" : "ankit",
+        "lastName" : "chaudhary",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary",
+        "gender" : "female"
+}
+> db.customers.update({firstName:"monika"}, {$set:{age:29}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firtName" : "ankit",
+        "lastName" : "chaudhary",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary",
+        "gender" : "female",
+        "age" : 29
+}
+> db.customers.update({firstName:"monika"}, {$inc:{age:2}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firtName" : "ankit",
+        "lastName" : "chaudhary",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary",
+        "gender" : "female",
+        "age" : 31
+}
+> db.customers.update({firstName:"monika"}, {$unset:{age:1}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "firtName" : "ankit",
+        "lastName" : "chaudhary",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary",
+        "gender" : "female"
+}
+> db.customers.find().forEach(function(doc){print("customer name " + doc.firstName)});
+customer name undefined
+customer name monika
+> db.customers.update({firtName:"ankit"},{$rename:{"firtName":"firstName}});
+2017-09-08T01:06:17.251+0530 E QUERY    [thread1] SyntaxError: unterminated string literal @(shell):1:60
+> db.customers.update({firtName:"ankit"},{$rename:{"firtName":"firstName"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.customers.find().pretty();
+{
+        "_id" : ObjectId("59b197429723814af340b97a"),
+        "lastName" : "chaudhary",
+        "gender" : "male",
+        "firstName" : "ankit"
+}
+{
+        "_id" : ObjectId("59b197429723814af340b97b"),
+        "firstName" : "monika",
+        "lastName" : "choudhary",
+        "gender" : "female"
+}
+> db.customers.find().forEach(function(doc){print("customer name " + doc.firstName)});
+customer name ankit
+customer name monika
+> mongos -h
+2017-09-08T11:01:17.931+0530 E QUERY    [thread1] ReferenceError: mongos is not defined :
+@(shell):1:1
+>
