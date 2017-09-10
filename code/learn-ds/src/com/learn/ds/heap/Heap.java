@@ -57,31 +57,31 @@ public class Heap {
 
 	private void buildMaxHeap(Integer[] a) {
 		heapSize = a.length;
-		for (Integer i = (a.length) / 2 - 1; i > 0; i--) {
+		for (Integer i = (a.length) / 2 - 1; i >= 0; i--) {
 			maxHeapifyRec(a, i);
 		}
 	}
 
 	private void buildMaxHeapItr(Integer[] a) {
 		heapSize = a.length;
-		for (Integer i = heapSize / 2; i > 0; i--) {
+		for (Integer i = heapSize / 2; i >= 0; i--) {
 			maxHeapifyIteration(a, i);
 		}
 	}
 
 	public void heapSort(Integer[] a) {
 		buildMaxHeap(a);
-		for (Integer i = (a.length) / 2 - 1; i > 1; i--) {
-			swap(a, i, 1);
+		for (Integer i = (a.length) / 2 - 1; i > 0; i--) {
+			swap(a, i, 0);
 			heapSize = heapSize - 1;
-			maxHeapifyRec(a, 1);
+			maxHeapifyRec(a, 0);
 		}
 	}
 
 	public void heapSortItr(Integer[] a) {
 		buildMaxHeapItr(a);
-		for (Integer i = (a.length) / 2 - 1; i > 1; i--) {
-			swap(a, i, 1);
+		for (Integer i = (a.length) / 2 - 1; i > 0; i--) {
+			swap(a, i, 0);
 			heapSize = heapSize - 1;
 			maxHeapifyIteration(a, i);
 		}
@@ -103,7 +103,7 @@ public class Heap {
 		Integer[] arr = new Integer[] { 257, 254, 491, 445, 126, 322, 714, 561, 128, 96, 773, 223, 492, 96, 59, 139, 62,
 				335, 747, 759 };
 //		heap.heapSortItr(arr);
-		SortingUtil.printArray(arr);
+//		SortingUtil.printArray(arr);
 
 	}
 }
