@@ -1,0 +1,56 @@
+writing angular code
+
+business logic goes to services
+
+directives
+	there r two
+		structural
+		attribute level
+		
+data binding
+	two types of binding
+		property binding 
+			send data to template
+		event binding
+			
+why angular 2?
+	easier
+	cross platform(PWA - which can work as mobile app)
+	high speed and high performance
+	highly productive elements
+		angular CLI, 
+	full development story
+	
+Angular CLI
+	must have node.js installed
+	 -g says global
+	npm install -g @angular/cli
+	
+	
+	*app is root folder for application
+	
+	main.ts file - tilescript
+	is the main file used for bottstrapping application
+	
+	polyfills.ts - used to support for unsupported browser
+	
+	karma.conf.js - 
+	
+	package.json is always entry point
+	
+	ts.lint.json - 
+	
+	
+	bootstrapping process:
+	
+	index.html 
+		<app-root> tag
+		
+		go to app.components.ts 
+			see selector - app-root
+	ng service to start application
+	
+	
+	'ng lint' - gives all the linting error 
+	
+	

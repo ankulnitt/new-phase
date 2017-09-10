@@ -1,0 +1,19 @@
+speculative generality - remve unused code
+swtich statements : could be change with polymorphism
+primitive obsession - pass primitive types as arguments
+long parameter list - breaking rule of SRP 
+unit testing is mandatory - TDD
+
+use common vocabulary
+	not executeorder but placeorder
+	
+Class name should be noun not a verb
+method name 
+
+solid principles
+SRP
+OCP: open closed principle
+LSP: Lickov substutio principle
+ISP: interface segrgation principle
+DIP: dependency inversion  principle
+
